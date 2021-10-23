@@ -1,2 +1,2 @@
 # gocodoc
-Utility for private golang library repos to generate developer documentation
+Utility for private github golang library repos to generate developer documentation
