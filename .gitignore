@@ -4,12 +4,16 @@
 *.dll
 *.so
 *.dylib
+gocodoc
 
 # Test binary, built with `go test -c`
 *.test
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+*.a
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+#Skip Visual Studio code control directory
