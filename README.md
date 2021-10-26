@@ -4,7 +4,7 @@ Utility for private github golang library repos to generate developer documentat
 
 # Demo
 
-[Show README](#gocodoc/pkg/README.md)
+[Show README](./pkg/README.md)
 
 # installation
 
