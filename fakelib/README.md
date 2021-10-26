@@ -1,7 +1,15 @@
-# This is a fake README.md file 
+# FakeLib Demo README.md 
+
+## This should be the static entry point to your documentation
+
+Most github repos have a README.md file.  Repo owners should modify their README.md file with a link similar to the following:
+
+[Fakelib Documentation](../fakedocs/README.md)
+
+# Github Markup Tests
 
 ## Ignore this
 
-# Docs
+### Ignore this3
 
-[Show README](../fakedocs/README.md)
+#### Ignore this4
