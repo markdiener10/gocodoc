@@ -53,7 +53,7 @@ Comments that begin with 2 slashes are visible in the documentation. Use 3 slash
 
 Example:
 
-```
+```go
 // This is a comment that will appear in documenation
 /// With 3 slashes, this comment will not appear in documentation
 ```
@@ -61,7 +61,7 @@ Example:
 Comments must be place either immediately above a given golang symbol or on the same line after the symbol.  Documentation terminates upon the first blank line encountered.
 
 Example:
-```
+```go
 //This is above a blank line so it does not appear in documentation
 
 //This is included in documentation because it is immediately above code symbol
@@ -76,7 +76,7 @@ var digitb int  /* This is included in documentation */
 The format for tags is:<|tag,tag,tag|>
 
 Example:
-```
+```go
 //<|tag,tag,tag|>  These tags are included in document generator output processing
 var digita int  
 ```

@@ -25,10 +25,7 @@ func TestGen(t *testing.T) {
 	if err = fileexists(src); err != nil {
 		t.Error("Source Does not exist:", err.Error())
 	}
-	if err = fileexists(dest); err != nil {
-		t.Error("Destination Does not exist:", err.Error())
-	} else {
-		//Now remove the old stuff
+	if err = fileexists(dest); err == nil {
 		os.RemoveAll(dest)
 	}
 
@@ -37,6 +34,6 @@ func TestGen(t *testing.T) {
 		t.Error("File recurse error:", err.Error())
 	}
 
-	gengitmarkup(dest, packs)
+	err = gengitmarkup(dest, packs)
 
 }

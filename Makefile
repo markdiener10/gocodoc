@@ -32,7 +32,7 @@ ci:
 #Quick iteration of unit tests
 dev: 
 	go clean -testcache 
-	go test ./src
+	go test ./pkg
 
 git: 
 	git add .
