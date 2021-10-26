@@ -4,4 +4,4 @@
 
 # Docs
 
-[Show README](../fakedocs/fakelib/README.md)
+[Show README](../fakedocs/README.md)
