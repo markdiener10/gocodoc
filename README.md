@@ -14,8 +14,8 @@ go install github.com/markdiener10/gocodoc
 
 gocodoc --src=path --dest=path 
 
---src  Source code root directory path 
---dest Destination path of generated documentation 
+--src  Source code root directory path  
+--dest Destination path of generated documentation  
 
 ## Motivation
 
