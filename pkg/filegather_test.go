@@ -35,5 +35,8 @@ func TestGen(t *testing.T) {
 	}
 
 	err = gengitmarkup(dest, packs)
+	if err != nil {
+		t.Error("Generate Github documentation error:", err.Error())
+	}
 
 }

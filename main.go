@@ -17,6 +17,8 @@ func main() {
 
 	_ = packs
 
+	_ = gocodoc.gengitmarkup(dest, packs)
+
 	//Now generate documentation based on the syntax tree
 
 }

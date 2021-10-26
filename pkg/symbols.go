@@ -24,6 +24,7 @@ func (g *Tpack) Init() {
 }
 
 type Tpacks struct {
+	idx  int
 	list []*Tpack
 }
 
@@ -56,15 +57,38 @@ func (g *Tpacks) Get(name string) *Tpack {
 	return item
 }
 
-func (g *Tpacks) Next(idx *int) *Tpack {
-	if *idx < -1 {
-		*idx = -1
-	}
-	(*idx)++
-	if len(g.list) <= *idx {
+func (g *Tpacks) Reset() *Tpack {
+	g.idx = -1
+	if len(g.list) == 0 {
 		return nil
 	}
-	return g.list[*idx]
+	return g.list[0]
+}
+
+func (g *Tpacks) Next() *Tpack {
+	if g.idx < -1 {
+		g.idx = -1
+	}
+	g.idx++
+	if g.idx >= len(g.list) {
+		return nil
+	}
+	return g.list[g.idx]
+}
+
+func (g *Tpacks) CodeCount() int {
+	var count int = 0
+	pack := g.Reset()
+	for {
+		if pack = g.Next(); pack == nil {
+			break
+		}
+		if pack.Codes.Count() == 0 {
+			continue
+		}
+		count++
+	}
+	return count
 }
 
 type Tmarkup struct {
@@ -108,11 +132,16 @@ func (g *Tcode) Init() {
 }
 
 type Tcodes struct {
+	idx  int
 	list []*Tcode
 }
 
 func (g *Tcodes) Init() {
 	g.list = []*Tcode{}
+}
+
+func (g *Tcodes) Count() int {
+	return len(g.list)
 }
 
 func (g *Tcodes) Find(path string, filename string) *Tcode {
@@ -144,15 +173,23 @@ func (g *Tcodes) Get(path string, filename string) *Tcode {
 	return item
 }
 
-func (g *Tcodes) Next(idx *int) *Tcode {
-	if *idx < -1 {
-		*idx = -1
-	}
-	(*idx)++
-	if len(g.list) <= *idx {
+func (g *Tcodes) Reset() *Tcode {
+	g.idx = -1
+	if len(g.list) == 0 {
 		return nil
 	}
-	return g.list[*idx]
+	return g.list[0]
+}
+
+func (g *Tcodes) Next() *Tcode {
+	if g.idx < -1 {
+		g.idx = -1
+	}
+	g.idx++
+	if len(g.list) <= g.idx {
+		return nil
+	}
+	return g.list[g.idx]
 }
 
 type Tvar struct {
@@ -169,6 +206,7 @@ func (g *Tvar) Init() {
 }
 
 type Tvars struct {
+	idx  int
 	list []*Tvar
 }
 
@@ -216,15 +254,23 @@ func (g *Tvars) Add() *Tvar {
 	return item
 }
 
-func (g *Tvars) Next(idx *int) *Tvar {
-	if *idx < -1 {
-		*idx = -1
-	}
-	(*idx)++
-	if len(g.list) <= *idx {
+func (g *Tvars) Reset() *Tvar {
+	g.idx = -1
+	if len(g.list) == 0 {
 		return nil
 	}
-	return g.list[*idx]
+	return g.list[0]
+}
+
+func (g *Tvars) Next() *Tvar {
+	if g.idx < -1 {
+		g.idx = -1
+	}
+	(g.idx)++
+	if len(g.list) <= g.idx {
+		return nil
+	}
+	return g.list[g.idx]
 }
 
 type Tfunc struct {
@@ -244,6 +290,7 @@ func (g *Tfunc) Init() {
 }
 
 type Tfuncs struct {
+	idx  int
 	list []*Tfunc
 }
 
@@ -280,15 +327,15 @@ func (g *Tfuncs) Get(name string) *Tfunc {
 	return item
 }
 
-func (g *Tfuncs) Next(idx *int) *Tfunc {
-	if *idx < -1 {
-		*idx = -1
+func (g *Tfuncs) Next() *Tfunc {
+	if g.idx < -1 {
+		g.idx = -1
 	}
-	(*idx)++
-	if len(g.list) <= *idx {
+	(g.idx)++
+	if len(g.list) <= g.idx {
 		return nil
 	}
-	return g.list[*idx]
+	return g.list[g.idx]
 }
 
 type Tstru struct {
@@ -310,6 +357,7 @@ func (g *Tstru) Init() {
 }
 
 type Tstructures struct {
+	idx  int
 	list []*Tstru
 }
 
@@ -342,15 +390,15 @@ func (g *Tstructures) Get(name string) *Tstru {
 	return item
 }
 
-func (g *Tstructures) Next(idx *int) *Tstru {
-	if *idx < -1 {
-		*idx = -1
+func (g *Tstructures) Next() *Tstru {
+	if g.idx < -1 {
+		g.idx = -1
 	}
-	(*idx)++
-	if len(g.list) <= *idx {
+	(g.idx)++
+	if len(g.list) <= g.idx {
 		return nil
 	}
-	return g.list[*idx]
+	return g.list[g.idx]
 }
 
 type Tinterface struct {
@@ -369,6 +417,7 @@ func (g *Tinterface) Init() {
 }
 
 type Tinterfaces struct {
+	idx  int
 	list []*Tinterface
 }
 
@@ -405,15 +454,15 @@ func (g *Tinterfaces) Get(name string) *Tinterface {
 	return item
 }
 
-func (g *Tinterfaces) Next(idx *int) *Tinterface {
-	if *idx < -1 {
-		*idx = -1
+func (g *Tinterfaces) Next() *Tinterface {
+	if g.idx < -1 {
+		g.idx = -1
 	}
-	(*idx)++
-	if len(g.list) <= *idx {
+	(g.idx)++
+	if len(g.list) <= g.idx {
 		return nil
 	}
-	return g.list[*idx]
+	return g.list[g.idx]
 }
 
 type Tconst struct {
@@ -446,6 +495,7 @@ func (g *Tconst) Add(item string, comment string) {
 }
 
 type Tconsts struct {
+	idx  int
 	list []*Tconst
 }
 
@@ -460,15 +510,15 @@ func (g *Tconsts) Add() *Tconst {
 	return gc
 }
 
-func (g *Tconsts) Next(idx *int) *Tconst {
-	if *idx < -1 {
-		*idx = -1
+func (g *Tconsts) Next() *Tconst {
+	if g.idx < -1 {
+		g.idx = -1
 	}
-	(*idx)++
-	if len(g.list) <= *idx {
+	(g.idx)++
+	if len(g.list) <= g.idx {
 		return nil
 	}
-	return g.list[*idx]
+	return g.list[g.idx]
 }
 
 func checktype(stype string) bool {

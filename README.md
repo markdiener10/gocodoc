@@ -8,7 +8,8 @@ Golang library document generator
 
 ## installation
 
-go install github.com/markdiener10/gocodoc
+go install github.com/markdiener10/gocodoc@latest
+#go install go101.org/golds@latest
 
 ## usage
 
