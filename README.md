@@ -23,7 +23,7 @@ The reason for this utility is that there is a missing piece in golang build pip
 
 ## Other options
 
-Reviewing was is currently available:
+Reviewing what was available at the time of this utility's creation:
 
 	godoc - http server oriented with html output 
 		* Not self contained for github
@@ -41,14 +41,48 @@ Reviewing was is currently available:
 		* poorly documented
 		* generates code down the external dependency chain. (Bloat)
 
-# comment tags
+# comment blocks and tags
 
-What is different about this document generator is that developers control documentation output by placing tags within the comments to control display.  Very similar to HTML markup tags.  
+What is different about this document generator is that developers control documentation output by placing intelligence within the source code to control display.
+
+Comments may be placed:
+	* using slashes (// or ///)
+	* using multi-line blocks (/*  */)
+
+Comments that begin with 2 slashes are visible in the documentation. Use 3 slashes to suppress visibility.
+
+Example:
+
+```
+// This is a comment that will appear in documenation
+/// With 3 slashes, this comment will not appear in documentation
+```
+
+Comments must be place either immediately above a given golang symbol or on the same line after the symbol.  Documentation terminates upon the first blank line encountered.
+
+Example:
+```
+//This is above a blank line so it does not appear in documentation
+
+//This is included in documentation
+var digita int  //This is included in documentation 
+
+/* This is above a blank line so it does not appear in documentation */
+
+/* This is included in documentation */
+var digitb int  /* This is included in documentation */
+```
 
 The format for tags is:<|tag,tag,tag|>
 
-It must be placed on the line above a given symbol either in // or /* */ comment blocks without any blank spaces between the symbol and the comment block
+Example:
+```
+//<|tag,tag,tag|>  These tags are included in document generator output processing
+var digita int  
+```
 	
 # future development
+
+	Define what tags should be enabled and their behavior
 
 	Expand to support bitbucket and gitlab.  Generate html.  Currently built to generator github.com oriented output.
