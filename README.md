@@ -46,8 +46,8 @@ Reviewing what was available at the time of this utility's creation:
 What is different about this document generator is that developers control documentation output by placing intelligence within the source code to control display.
 
 Comments may be placed:
-	* using slashes (// or ///)
-	* using multi-line blocks (/*  */)
+	- using slashes (// or ///)
+	- using multi-line blocks (/*  */)
 
 Comments that begin with 2 slashes are visible in the documentation. Use 3 slashes to suppress visibility.
 
