@@ -64,7 +64,7 @@ Example:
 ```
 //This is above a blank line so it does not appear in documentation
 
-//This is included in documentation
+//This is included in documentation because it is immediately above code symbol
 var digita int  //This is included in documentation 
 
 /* This is above a blank line so it does not appear in documentation */

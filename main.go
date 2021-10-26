@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./src/gocodoc"
+	gocodoc "./src/pkg"
 )
 
 func main() {
