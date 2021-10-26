@@ -1,3 +1,7 @@
-#This is a fake README.md file 
+# This is a fake README.md file 
 
-##Ignore this
+## Ignore this
+
+# Docs
+
+[Show README](../fakedocs/fakelib/README.md)
