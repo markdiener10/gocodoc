@@ -4,7 +4,7 @@ SHELL := /usr/bin/env bash
 .DEFAULT_GOAL := verify
 #COMMIT_SHA := $(shell git rev-parse HEAD)
 
-.PHONY: clean test ci dev
+.PHONY: clean test ci dev git
 
 #Helper function to clean up the docker environment
 clean:
@@ -34,3 +34,7 @@ dev:
 	go clean -testcache 
 	go test ./src
 
+git: 
+	git add .
+	git commit -m "doc formatting tests"
+	git push
