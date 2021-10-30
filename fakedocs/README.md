@@ -2,8 +2,7 @@
 
 ### Package:fakelib
 elements1.go ../fakelib/pkg
-#### Constants
-
+#### Constants  
 ###### Comment above the FAKECONST
 FAKECONST 
 
@@ -25,8 +24,7 @@ TestInterface1
 - Func:FuncOne
 - Func:FuncTwo
 elements2.go ../fakelib/pkg
-#### Constants
-
+#### Constants  
 FakeLibConst21 
 FakeLibConst22 
 FakeLibConst23 
@@ -40,6 +38,5 @@ TestInterface2
 - Func:FuncTwo
 elements3.go ../fakelib/pkg
 C Linkage notice (look at source)
-#### Constants
-#### Types
+#### Constants  #### Types
 FakeLibType31 int64 
