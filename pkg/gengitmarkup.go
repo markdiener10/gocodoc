@@ -10,12 +10,12 @@ import (
 //Now we want to generate a README.md as our generated documentation head.
 //Then we want to count the number of packages in the parsed code
 
-func Wn(g *os.File, pre string, out string) {
-	g.WriteString(pre + out + "  ")
+func Wn(g *os.File, out string) {
+	g.WriteString(out + "  ")
 }
 
 func W(g *os.File, out string) {
-	g.WriteString(out + "  \r\n")
+	g.WriteString(out + "\r\n")
 }
 
 func Gengitmarkup(dest string, packs *Tpacks) error {
@@ -182,7 +182,7 @@ func gengitpackage(g *os.File, gp *Tpack) error {
 
 		//interfaces
 		if gc.Interfaces.Count() > 0 {
-			W(g, "#### Interfaces")
+			We(g, "#### ", "Interfaces")
 			gc.Interfaces.Reset()
 			for gc.Interfaces.Next() {
 				gi = gc.Interfaces.I
