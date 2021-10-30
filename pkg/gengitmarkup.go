@@ -11,7 +11,7 @@ import (
 //Then we want to count the number of packages in the parsed code
 
 func Wn(g *os.File, out string) {
-	g.WriteString(out + "<br>")
+	g.WriteString(out + "")
 }
 
 func W(g *os.File, out string) {
@@ -121,7 +121,7 @@ func We(g *os.File, pre string, out string) {
 
 func gengitpackage(g *os.File, gp *Tpack) error {
 
-	Wn(g, "### Package:"+gp.Name)
+	W(g, "### Package:"+gp.Name)
 
 	var gc *Tcode
 	var gv *Tvar
@@ -143,7 +143,7 @@ func gengitpackage(g *os.File, gp *Tpack) error {
 		}
 
 		//Consts
-		Wn(g, "#### Constants")
+		W(g, "#### Constants")
 		gc.Consts.Reset()
 		for gc.Consts.Next() {
 			gco = gc.Consts.C
