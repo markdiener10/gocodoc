@@ -24,7 +24,8 @@ FakeVar2 float64 This is a comment for FakeVar2
 TestInterface1  
 Func:FuncOne  
 Func:FuncTwo  
-  
+```  
+```  
 elements2.go ../fakelib/pkg  
 #### Constants  
   
@@ -39,10 +40,12 @@ FakeLibType22 bool
 TestInterface2  
 Func:FuncOne  
 Func:FuncTwo  
-  
+```  
+```  
 elements3.go ../fakelib/pkg  
 C Linkage notice (look at source)  
 #### Constants  
 #### Types  
 FakeLibType31 int64   
-  
+```  
+```  
