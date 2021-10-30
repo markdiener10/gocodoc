@@ -3,6 +3,7 @@ package gocodoc
 import (
 	"errors"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -17,11 +18,11 @@ func Ws(g *os.File, pre int, out string) {
 	if pre > 0 {
 		g.WriteString(strings.Repeat(" ", pre))
 	}
-	g.WriteString(out + "\r\n")
+	g.WriteString(out + "  \r\n")
 }
 
 func W(g *os.File, out string) {
-	g.WriteString(out + "\r\n")
+	g.WriteString(out + "  \r\n")
 }
 
 func Gengitmarkup(dest string, packs *Tpacks) error {
@@ -48,20 +49,53 @@ func Gengitmarkup(dest string, packs *Tpacks) error {
 	W(g, "# Documentation")
 	W(g, "")
 
-	count := packs.CodeCount()
-	if count == 0 {
+	packcnt := packs.PackCount()
+	if packcnt == 0 {
 		W(g, "There are no packages with code in the related repository:"+dest)
 		return nil
 	}
 
-	W(g, "## Packages")
+	var P *Tpack
 
-	P := packs.Reset()
-
-	for packs.Next() {
-		P = packs.P
-		W(g, P.Name+"  ")
+	if packcnt == 1 {
+		return gengitpackage(g, P)
 	}
 
+	W(g, "## Packages")
+
+	packs.Reset()
+	for packs.Next() {
+		P = packs.P
+		switch P.Codes.Count() {
+		case 0:
+			continue
+		case 1:
+			W(g, "### ["+P.Name+"](#"+P.Name+")")
+		default:
+			W(g, "### ["+P.Name+"](#"+P.Name+") Files:"+strconv.Itoa(P.Codes.Count()))
+		}
+	}
+
+	packs.Reset()
+	for packs.Next() {
+		P = packs.P
+		if P.Codes.Count() == 0 {
+			continue
+		}
+
+		gp, err := os.OpenFile(dest+"/"+P.Name+".md", os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0777)
+		if err != nil {
+			return err
+		}
+		defer gp.Close()
+		err = gengitpackage(g, P)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func gengitpackage(g *os.File, gp *Tpack) error {
 	return nil
 }

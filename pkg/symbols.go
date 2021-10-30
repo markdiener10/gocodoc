@@ -82,16 +82,16 @@ func (g *Tpacks) Next() bool {
 	return true
 }
 
-func (g *Tpacks) CodeCount() int {
-	var count int = 0
+func (g *Tpacks) PackCount() int {
+	var packcount int = 0
 	_ = g.Reset()
 	for g.Next() {
 		if g.P.Codes.Count() == 0 {
 			continue
 		}
-		count++
+		packcount++
 	}
-	return count
+	return packcount
 }
 
 type Tmarkup struct {
