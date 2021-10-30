@@ -30,8 +30,8 @@ type TestInterface1 interface {
 	FuncTwo(parm1 string, parm2 int) (string, bool)
 }
 
-func FuncOne(parm1 string, parm2 int) (one string, two bool) { return "", true }
-func FuncTwo(parm1 string, parm2 int) string                 { return "" }
+func FuncOneAlone(parm1 string, parm2 int) (one string, two bool) { return "", true }
+func FuncTwoAlone(parm1 string, parm2 int) string                 { return "" }
 
 type TestStruct1A struct {
 	PublicParm  string

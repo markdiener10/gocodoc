@@ -107,8 +107,8 @@ func Wpre(g *os.File, gm *Tmarkup) {
 	}
 }
 
-func Wfunc(g *os.File, gf *Tfunc) {
-	W(g, "Func:"+gf.Name)
+func Wfunc(g *os.File, pre string, gf *Tfunc) {
+	W(g, pre+"Func:"+gf.Name)
 	//for line := range gm.Precomments {
 }
 
@@ -192,7 +192,7 @@ func gengitpackage(g *os.File, gp *Tpack) error {
 				gi.Funcs.Reset()
 				for gi.Funcs.Next() {
 					gf = gi.Funcs.F
-					Wfunc(g, gf)
+					Wfunc(g, "  ", gf)
 				}
 			}
 		}
@@ -213,14 +213,13 @@ func gengitpackage(g *os.File, gp *Tpack) error {
 		if gc.Funcs.Count() > 0 {
 			W(g, "#### Funcs")
 			gc.Funcs.Reset()
+			W(g, "```golang")
 			for gc.Funcs.Next() {
 				gf = gc.Funcs.F
 				W(g, "Func:"+gf.Name)
 			}
+			W(g, "```")
 		}
-
-		W(g, "```")
-		W(g, "```")
 
 	}
 
