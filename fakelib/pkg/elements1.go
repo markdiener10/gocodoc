@@ -21,7 +21,7 @@ const (
 	FakeLibConst11 = iota // Comment
 	FakeLibConst12        ///Comment that does not show in documentation
 	FakeLibConst13
-	FakeLibConst14
+	FakeLibConst14 //Comment that does show
 )
 
 // This is a comment that will appear above the interface type

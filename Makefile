@@ -37,6 +37,9 @@ dev:
 gen: 
 	go clean -testcache 
 	go test -run Gen ./pkg
+	git add .
+	git commit -m "doc formatting tests"
+	git push
 
 git: 
 	git add .

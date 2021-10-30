@@ -103,7 +103,7 @@ func Wpre(g *os.File, gm *Tmarkup) {
 	}
 	//W(g, "") //Add blank line from previous entry
 	for _, line := range gm.Precomments {
-		W(g, Ws(line))
+		W(g, "#### "+Ws(line))
 	}
 }
 
@@ -218,6 +218,9 @@ func gengitpackage(g *os.File, gp *Tpack) error {
 				W(g, "Func:"+gf.Name)
 			}
 		}
+
+		W(g, "")
+
 	}
 
 	return nil
