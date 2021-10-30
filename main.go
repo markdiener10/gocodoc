@@ -10,6 +10,7 @@ func main() {
 	if !reb {
 		return
 	}
+	_ = dest
 	packs := &gocodoc.Tpacks{}
 	packs.Init()
 
@@ -17,7 +18,7 @@ func main() {
 
 	_ = packs
 
-	_ = gocodoc.Gengitmarkup(dest, packs)
+	//_ = gocodoc.Gengitmarkup(dest, packs)
 
 	//Now generate documentation based on the syntax tree
 
