@@ -11,7 +11,7 @@ import (
 //Then we want to count the number of packages in the parsed code
 
 func Wn(g *os.File, out string) {
-	g.WriteString(out + "  ")
+	g.WriteString(out + "<br>")
 }
 
 func W(g *os.File, out string) {
