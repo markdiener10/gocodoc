@@ -22,8 +22,8 @@ FakeVar2 float64 This is a comment for FakeVar2
 #### Interfaces  
 ######  This is a comment that will appear above the interface type  
 TestInterface1  
-* Func:FuncOne  
-* Func:FuncTwo  
+- Func:FuncOne  
+- Func:FuncTwo  
 elements2.go ../fakelib/pkg  
 #### Constants  
   
@@ -36,8 +36,8 @@ FakeLibType21 int64 This should show in documents for the FakeLibType21
 FakeLibType22 bool   
 #### Interfaces  
 TestInterface2  
-* Func:FuncOne  
-* Func:FuncTwo  
+- Func:FuncOne  
+- Func:FuncTwo  
 elements3.go ../fakelib/pkg  
 C Linkage notice (look at source)  
 #### Constants  

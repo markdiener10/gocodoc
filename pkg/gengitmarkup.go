@@ -192,7 +192,7 @@ func gengitpackage(g *os.File, gp *Tpack) error {
 				gi.Funcs.Reset()
 				for gi.Funcs.Next() {
 					gf = gi.Funcs.F
-					Wfunc(g, "* ", gf)
+					Wfunc(g, "- ", gf)
 				}
 			}
 		}
