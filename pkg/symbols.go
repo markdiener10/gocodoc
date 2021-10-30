@@ -25,11 +25,16 @@ func (g *Tpack) Init() {
 
 type Tpacks struct {
 	idx  int
+	P    *Tpack
 	list []*Tpack
 }
 
+type Ppack *Tpack
+
 func (g *Tpacks) Init() {
 	g.list = []*Tpack{}
+	g.idx = -1
+	g.P = nil
 }
 
 func (g *Tpacks) Find(name string) *Tpack {
@@ -65,25 +70,23 @@ func (g *Tpacks) Reset() *Tpack {
 	return g.list[0]
 }
 
-func (g *Tpacks) Next() *Tpack {
+func (g *Tpacks) Next() bool {
 	if g.idx < -1 {
 		g.idx = -1
 	}
 	g.idx++
 	if g.idx >= len(g.list) {
-		return nil
+		return false
 	}
-	return g.list[g.idx]
+	g.P = g.list[g.idx]
+	return true
 }
 
 func (g *Tpacks) CodeCount() int {
 	var count int = 0
-	pack := g.Reset()
-	for {
-		if pack = g.Next(); pack == nil {
-			break
-		}
-		if pack.Codes.Count() == 0 {
+	_ = g.Reset()
+	for g.Next() {
+		if g.P.Codes.Count() == 0 {
 			continue
 		}
 		count++

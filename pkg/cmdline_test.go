@@ -20,7 +20,7 @@ func TestCommandLine(t *testing.T) {
 	os.Args[1] = "--src=../fakelib"
 	os.Args[2] = "--dest=../fakedocs"
 
-	src, dest, reb := cmdlineprocess()
+	src, dest, reb := Cmdlineprocess()
 	if !reb {
 		t.Error("Error in CmdLine")
 		return

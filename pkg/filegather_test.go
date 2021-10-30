@@ -16,7 +16,7 @@ func TestGen(t *testing.T) {
 	packs := &Tpacks{}
 	packs.Init()
 
-	src, dest, reb := cmdlineprocess()
+	src, dest, reb := Cmdlineprocess()
 	if !reb {
 		t.Error("Error in CmdLine")
 		return
@@ -29,12 +29,12 @@ func TestGen(t *testing.T) {
 		os.RemoveAll(dest)
 	}
 
-	err = filerecurse(src, packs)
+	err = Filerecurse(src, packs)
 	if err != nil {
 		t.Error("File recurse error:", err.Error())
 	}
 
-	err = gengitmarkup(dest, packs)
+	err = Gengitmarkup(dest, packs)
 	if err != nil {
 		t.Error("Generate Github documentation error:", err.Error())
 	}

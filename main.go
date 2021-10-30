@@ -6,18 +6,18 @@ import (
 
 func main() {
 
-	src, dest, reb := gocodoc.cmdlineprocess()
+	src, dest, reb := gocodoc.Cmdlineprocess()
 	if !reb {
 		return
 	}
 	packs := &gocodoc.Tpacks{}
 	packs.Init()
 
-	_ = gocodoc.filerecurse(src, packs)
+	_ = gocodoc.Filerecurse(src, packs)
 
 	_ = packs
 
-	_ = gocodoc.gengitmarkup(dest, packs)
+	_ = gocodoc.Gengitmarkup(dest, packs)
 
 	//Now generate documentation based on the syntax tree
 

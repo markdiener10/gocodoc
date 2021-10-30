@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func filerecurse(path string, packs *Tpacks) error {
+func Filerecurse(path string, packs *Tpacks) error {
 
 	var s string
 	var lines *[]string
@@ -18,7 +18,7 @@ func filerecurse(path string, packs *Tpacks) error {
 
 	for _, file := range filelist {
 		if file.IsDir() {
-			err = filerecurse(path+"/"+file.Name(), packs)
+			err = Filerecurse(path+"/"+file.Name(), packs)
 			if err != nil {
 				return err
 			}

@@ -14,7 +14,7 @@ func fileexists(fname string) error {
 	return nil
 }
 
-func cmdlineprocess() (string, string, bool) {
+func Cmdlineprocess() (string, string, bool) {
 	//Search for --src --dest
 	fmt.Print("Gocodoc Documentation Utility")
 	if len(os.Args) < 3 {
