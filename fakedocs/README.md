@@ -1,8 +1,6 @@
 # Documentation
 
-### Package:fakelib
-elements1.go ../fakelib/pkg
-#### Constants  
+### Package:fakelib  elements1.go ../fakelib/pkg  #### Constants  
 ###### Comment above the FAKECONST
 FAKECONST 
 
@@ -23,8 +21,7 @@ FakeVar2 float64 This is a comment for FakeVar2
 TestInterface1
 - Func:FuncOne
 - Func:FuncTwo
-elements2.go ../fakelib/pkg
-#### Constants  
+elements2.go ../fakelib/pkg  #### Constants  
 FakeLibConst21 
 FakeLibConst22 
 FakeLibConst23 
@@ -36,7 +33,6 @@ FakeLibType22 bool
 TestInterface2
 - Func:FuncOne
 - Func:FuncTwo
-elements3.go ../fakelib/pkg
-C Linkage notice (look at source)
+elements3.go ../fakelib/pkg  C Linkage notice (look at source)
 #### Constants  #### Types
 FakeLibType31 int64 

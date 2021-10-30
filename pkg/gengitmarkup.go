@@ -121,7 +121,7 @@ func We(g *os.File, pre string, out string) {
 
 func gengitpackage(g *os.File, gp *Tpack) error {
 
-	W(g, "### Package:"+gp.Name)
+	Wn(g, "### Package:"+gp.Name)
 
 	var gc *Tcode
 	var gv *Tvar
@@ -137,7 +137,7 @@ func gengitpackage(g *os.File, gp *Tpack) error {
 
 		gc = gp.Codes.C
 
-		W(g, gc.Filename+" "+gc.Path)
+		Wn(g, gc.Filename+" "+gc.Path)
 		if gc.Cgo {
 			W(g, "C Linkage notice (look at source)")
 		}
