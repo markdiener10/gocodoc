@@ -14,13 +14,6 @@ func Wn(g *os.File, pre int, out string) {
 	g.WriteString(out)
 }
 
-func Ws(g *os.File, pre int, out string) {
-	if pre > 0 {
-		g.WriteString(strings.Repeat(" ", pre))
-	}
-	g.WriteString(out + "  \r\n")
-}
-
 func W(g *os.File, out string) {
 	g.WriteString(out + "  \r\n")
 }
@@ -94,27 +87,85 @@ func Gengitmarkup(dest string, packs *Tpacks) error {
 	return nil
 }
 
+func Ws(input string) string {
+	input = strings.TrimSpace(input)
+	if len(input) > 2 {
+		if input[0:3] == "///" {
+			return "" //Hidden comment
+		}
+	}
+	return strings.ReplaceAll(input, "/", "")
+}
+
+func Wpre(g *os.File, gm *Tmarkup) {
+	if len(gm.Precomments) == 0 {
+		return
+	}
+	//W(g, "") //Add blank line from previous entry
+	for _, line := range gm.Precomments {
+		W(g, Ws(line))
+	}
+}
+
+func Wfunc(g *os.File, gf *Tfunc) {
+	W(g, "Func:"+gf.Name)
+	//for line := range gm.Precomments {
+}
+
+func We(g *os.File, pre string, out string) {
+	if len(out) == 0 {
+		return
+	}
+	g.WriteString(pre + out + "  \r\n")
+}
+
 func gengitpackage(g *os.File, gp *Tpack) error {
 
-	W(g, "### ["+gp.Name+"](#"+gp.Name+")")
+	W(g, "### Package:"+gp.Name)
 
 	var gc *Tcode
 	var gv *Tvar
 	var gf *Tfunc
 	var gs *Tstru
 	var gi *Tinterface
+	var gm *Tmarkup
+	var gco *Tconst
+	var idx int
 
 	gp.Codes.Reset()
 	for gp.Codes.Next() {
 
 		gc = gp.Codes.C
 
+		W(g, gc.Filename+" "+gc.Path)
+		if gc.Cgo {
+			W(g, "C Linkage notice (look at source)")
+		}
+
+		//Consts
+		W(g, "#### Constants")
+		gc.Consts.Reset()
+		for gc.Consts.Next() {
+			gco = gc.Consts.C
+			gm = &gco.Markup
+			W(g, "") //Blank line
+			Wpre(g, gm)
+			for idx, _ = range gco.Items {
+				if gco.Public[idx] == false {
+					continue
+				}
+				W(g, gco.Items[idx]+" "+Ws(gco.Comments[idx]))
+			}
+		}
+
 		//types
 		W(g, "#### Types")
 		gc.Types.Reset()
 		for gc.Types.Next() {
 			gv = gc.Types.V
-			W(g, gv.Name)
+			gm = &gv.Markup
+			Wpre(g, gm)
+			W(g, gv.Name+" "+gv.Type+" "+Ws(gm.Comment))
 		}
 
 		//vars
@@ -123,7 +174,9 @@ func gengitpackage(g *os.File, gp *Tpack) error {
 			gc.Vars.Reset()
 			for gc.Vars.Next() {
 				gv = gc.Vars.V
-				W(g, gv.Name)
+				gm = &gv.Markup
+				Wpre(g, gm)
+				W(g, gv.Name+" "+gv.Type+" "+Ws(gm.Comment))
 			}
 		}
 
@@ -133,7 +186,14 @@ func gengitpackage(g *os.File, gp *Tpack) error {
 			gc.Interfaces.Reset()
 			for gc.Interfaces.Next() {
 				gi = gc.Interfaces.I
+				gm = &gi.Markup
+				Wpre(g, gm)
 				W(g, gi.Name)
+				gi.Funcs.Reset()
+				for gi.Funcs.Next() {
+					gf = gi.Funcs.F
+					Wfunc(g, gf)
+				}
 			}
 		}
 
@@ -143,7 +203,9 @@ func gengitpackage(g *os.File, gp *Tpack) error {
 			gc.Structs.Reset()
 			for gc.Structs.Next() {
 				gs = gc.Structs.S
-				W(g, gs.Name)
+				gm = &gs.Markup
+				Wpre(g, gm)
+				W(g, gs.Name+" "+Ws(gm.Comment))
 			}
 		}
 
@@ -153,14 +215,10 @@ func gengitpackage(g *os.File, gp *Tpack) error {
 			gc.Funcs.Reset()
 			for gc.Funcs.Next() {
 				gf = gc.Funcs.F
-				W(g, gf.Name)
+				W(g, "Func:"+gf.Name)
 			}
 		}
 	}
 
-	return nil
-}
-
-func gengitcode(g *os.File, gp *Tpack) error {
 	return nil
 }

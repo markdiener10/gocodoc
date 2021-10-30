@@ -573,6 +573,14 @@ func (g *Tconsts) Add() *Tconst {
 	return gc
 }
 
+func (g *Tconsts) Reset() *Tconst {
+	g.idx = -1
+	if len(g.list) == 0 {
+		return nil
+	}
+	return g.list[0]
+}
+
 func (g *Tconsts) Next() bool {
 	if g.idx < -1 {
 		g.idx = -1
