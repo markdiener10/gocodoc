@@ -13,7 +13,7 @@ func w(g *os.File, out string) {
 }
 
 func wn(g *os.File, out string) {
-	g.WriteString(out)
+	g.WriteString(out + "\r\n")
 }
 
 func ws(input string) string {

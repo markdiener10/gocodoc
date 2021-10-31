@@ -2,7 +2,8 @@
 ### Package:fakelib1  
 ../fakelib1/pkg  
 C Linkage notice (look at source)  
-#### Constants  ###### Comment above the FAKECONST  
+#### Constants  
+###### Comment above the FAKECONST  
 <pre><code>  
 FAKECONST        
 </code></pre>  
@@ -35,7 +36,8 @@ TestInterface1
 </code></pre>  
 ../fakelib1/pkg  
 C Linkage notice (look at source)  
-#### Constants  <pre><code>  
+#### Constants  
+<pre><code>  
 FakeLibConst21        
 FakeLibConst22        
 FakeLibConst23        
@@ -56,7 +58,8 @@ TestInterface2
 </code></pre>  
 ../fakelib1/pkg  
 C Linkage notice (look at source)  
-#### Constants  #### Types  
+#### Constants  
+#### Types  
 <pre><code>  
 FakeLibType31 int64   
 </code></pre>  
