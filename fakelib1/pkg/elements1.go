@@ -1,6 +1,6 @@
 //More comments at the top of the file
 //<|tagA,tagB,tagC|>
-package fakelib // This is a comment to show in the documentation for fakelib package
+package fakelib1 // This is a comment to show in the documentation for fakelib package
 
 import (
 	"os"

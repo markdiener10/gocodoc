@@ -23,6 +23,38 @@ func (g *Tpack) Init() {
 	g.Codes.Init()
 }
 
+//Allow us to compress the Tcodes based on file/path
+//into Tcodes based on path only (all source codes within directory are merged code-wise)
+func (g *Tpack) SplitByPath() []*Tcodes {
+
+	glist := []*Tcodes{}
+	var gcodes *Tcodes
+	var codea *Tcode
+	var codeb *Tcode
+	var found bool
+
+	for _, codea = range g.Codes.List {
+		found = false
+		for _, gcodes = range glist {
+			for _, codeb = range gcodes.List {
+				if codea.Path != codeb.Path {
+					continue
+				}
+			}
+			gcodes.List = append(gcodes.List, codea)
+			found = true
+			break
+		}
+		if found == false {
+			gcodes := &Tcodes{}
+			gcodes.Init()
+			gcodes.List = append(gcodes.List, codea)
+			glist = append(glist, gcodes)
+		}
+	}
+	return glist
+}
+
 type Tpacks struct {
 	idx  int
 	P    *Tpack
@@ -48,6 +80,7 @@ func (g *Tpacks) Find(name string) *Tpack {
 		if item.Name != name {
 			continue
 		}
+
 		return item
 	}
 	return nil
@@ -139,24 +172,24 @@ func (g *Tcode) Init() {
 type Tcodes struct {
 	idx  int
 	C    *Tcode
-	list []*Tcode
+	List []*Tcode
 }
 
 func (g *Tcodes) Init() {
-	g.list = []*Tcode{}
+	g.List = []*Tcode{}
 	g.C = nil
 }
 
 func (g *Tcodes) Count() int {
-	return len(g.list)
+	return len(g.List)
 }
 
 func (g *Tcodes) Find(path string, filename string) *Tcode {
 	var item *Tcode
-	if len(g.list) == 0 {
+	if len(g.List) == 0 {
 		return nil
 	}
-	for _, item = range g.list {
+	for _, item = range g.List {
 		if item.Path != path {
 			continue
 		}
@@ -176,16 +209,16 @@ func (g *Tcodes) Get(path string, filename string) *Tcode {
 	}
 	item = &Tcode{Filename: filename, Path: path}
 	item.Init()
-	g.list = append(g.list, item)
+	g.List = append(g.List, item)
 	return item
 }
 
 func (g *Tcodes) Reset() *Tcode {
 	g.idx = -1
-	if len(g.list) == 0 {
+	if len(g.List) == 0 {
 		return nil
 	}
-	return g.list[0]
+	return g.List[0]
 }
 
 func (g *Tcodes) Next() bool {
@@ -193,10 +226,10 @@ func (g *Tcodes) Next() bool {
 		g.idx = -1
 	}
 	g.idx++
-	if g.idx >= len(g.list) {
+	if g.idx >= len(g.List) {
 		return false
 	}
-	g.C = g.list[g.idx]
+	g.C = g.List[g.idx]
 	return true
 }
 

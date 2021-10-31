@@ -2,7 +2,7 @@
 These are multiline comments so we can see what it takes to parse it
 
 <|tag|> */
-package fakelib
+package fakelib1
 
 import (
 	"os"
