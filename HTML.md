@@ -10,4 +10,6 @@
 <tr><th>Front</th><th>Middle</th><th>Back</th></tr>
 <tr><td>baz</td><td>bim</td></tr>
 <tr><td>baz</td><td>bim</td></tr>
+<tr></tr>
 </table>
+<table></table>
