@@ -5,9 +5,8 @@
 <h5>Header 5</h5>
 <h6>Header 6</h6>
 <pre><code>Pre Code1</code></pre>
-<pre><code>Pre Code2</code</pre>
 <table>
-<tr><th>Front</th><th>Middle</th><th>Back</th></tr>
+<thead><tr><th>Front</th><th>Middle</th><th>Back</th></tr></thead>
 <tr><td>baz</td><td>bim</td></tr>
 <tr><td>baz</td><td>bim</td></tr>
 <tr></tr>
