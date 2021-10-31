@@ -4,8 +4,10 @@
 C Linkage notice (look at source)
 #### Constants
 > Comment above the FAKECONST
+
    FAKECONST   
 >  This is a comment that will appear above the const type
+
    FakeLibConst11    Comment
    FakeLibConst12
    FakeLibConst13   
@@ -15,10 +17,12 @@ C Linkage notice (look at source)
    FakeLibType12    bool
 #### Variables
 > Here is a comment above the FakeVar1
+
    FakeVar1    int32   This is a comment for FakeVar1
    FakeVar2    float64   This is a comment for FakeVar2
 #### Interfaces
 >  This is a comment that will appear above the interface type
+
 TestInterface1
    TestInterface1   
     Func:FuncOne

@@ -87,6 +87,7 @@ func (g *Tmarkdown) wpre(gm *Tmarkup) {
 			}
 		}
 		g.w("> " + g.wcomment("", line))
+		g.w("")
 	}
 }
 
