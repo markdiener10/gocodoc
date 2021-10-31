@@ -1,4 +1,4 @@
-# FakeLib Demo README.md 
+# FakeLib Multi Package Demo
 
 ## This should be the static entry point to your documentation
 

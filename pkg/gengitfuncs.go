@@ -9,11 +9,11 @@ import (
 //Then we want to count the number of packages in the parsed code
 
 func w(g *os.File, out string) {
-	g.WriteString(out + "  \r\n")
+	g.WriteString(out + "<br>")
 }
 
 func wn(g *os.File, out string) {
-	g.WriteString(out + "\r\n")
+	g.WriteString(out + "<br>")
 }
 
 func ws(input string) string {
