@@ -2,15 +2,17 @@
 ### Package:fakelib1  
 ../fakelib1/pkg  
 #### Constants  
-  
+<pre><code>  
 ###### Comment above the FAKECONST  
-FAKECONST   
-  
+FAKECONST        
+</code></pre>  
+<pre><code>  
 ######  This is a comment that will appear above the const type  
-FakeLibConst11  Comment  
-FakeLibConst12   
-FakeLibConst13   
-FakeLibConst14 Comment that does show  
+FakeLibConst11       Comment  
+FakeLibConst12        
+FakeLibConst13        
+FakeLibConst14      Comment that does show  
+</code></pre>  
 #### Types  
 FakeLibType11 int64  This is a comment that WILL appear in the documents  
 FakeLibType12 bool   
@@ -25,11 +27,12 @@ TestInterface1
 - Func:FuncTwo  
 ../fakelib1/pkg  
 #### Constants  
-  
-FakeLibConst21   
-FakeLibConst22   
-FakeLibConst23   
-FakeLibConst24   
+<pre><code>  
+FakeLibConst21        
+FakeLibConst22        
+FakeLibConst23        
+FakeLibConst24        
+</code></pre>  
 #### Types  
 FakeLibType21 int64 This should show in documents for the FakeLibType21  
 FakeLibType22 bool   

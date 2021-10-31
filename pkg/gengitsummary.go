@@ -40,14 +40,15 @@ func gengitsumcode(g *os.File, gp *Tpack, gc *Tcode) error {
 	for gc.Consts.Next() {
 		gco = gc.Consts.C
 		gm = &gco.Markup
-		w(g, "") //Blank line
+		w(g, "<pre><code>") //Blank line
 		wpre(g, gm)
 		for idx, _ = range gco.Items {
 			if gco.Public[idx] == false {
 				continue
 			}
-			w(g, gco.Items[idx]+" "+ws(gco.Comments[idx]))
+			w(g, gco.Items[idx]+"      "+ws(gco.Comments[idx]))
 		}
+		w(g, "</code></pre>") //Blank line
 	}
 
 	//types
