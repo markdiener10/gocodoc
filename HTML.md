@@ -5,4 +5,4 @@
 <h5>Header 5</h5>
 <h6>Header 6</h6>
 <pre><code>Pre Code1</code></pre>
-<pre><code style="font-size:10%">Pre Code2</code></pre>
+<pre><code style="font-size:1vw">Pre Code2</code></pre>
