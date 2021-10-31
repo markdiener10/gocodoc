@@ -56,7 +56,7 @@ func (g *Tmarkdown) we(pre string, out string) string {
 }
 
 func (g *Tmarkdown) wcode(input string) {
-	g.w("   " + input)
+	g.w("    " + input)
 }
 
 func (g *Tmarkdown) wcomment(pre string, input string) string {
