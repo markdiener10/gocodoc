@@ -19,5 +19,9 @@
 <td>baz</td>
 <td>bim</td>
 </tr>
+<tr>
+<td>baz</td>
+<td>bim</td>
+</tr>
 </tbody>
 </table>
