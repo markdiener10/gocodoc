@@ -40,15 +40,15 @@ func gengitsumcode(g *os.File, gp *Tpack, gc *Tcode) error {
 	for gc.Consts.Next() {
 		gco = gc.Consts.C
 		gm = &gco.Markup
-		w(g, "<pre><code>") //Blank line
 		wpre(g, gm)
+		w(g, "<pre><code>")
 		for idx, _ = range gco.Items {
 			if gco.Public[idx] == false {
 				continue
 			}
 			w(g, gco.Items[idx]+"      "+ws(gco.Comments[idx]))
 		}
-		w(g, "</code></pre>") //Blank line
+		w(g, "</code></pre>")
 	}
 
 	//types
@@ -58,7 +58,9 @@ func gengitsumcode(g *os.File, gp *Tpack, gc *Tcode) error {
 		gv = gc.Types.V
 		gm = &gv.Markup
 		wpre(g, gm)
+		w(g, "<pre><code>")
 		w(g, gv.Name+" "+gv.Type+" "+ws(gm.Comment))
+		w(g, "</code></pre>")
 	}
 
 	//vars
@@ -69,6 +71,7 @@ func gengitsumcode(g *os.File, gp *Tpack, gc *Tcode) error {
 			gv = gc.Vars.V
 			gm = &gv.Markup
 			wpre(g, gm)
+			w(g, "<pre><code>")
 			w(g, gv.Name+" "+gv.Type+" "+ws(gm.Comment))
 		}
 	}
@@ -81,12 +84,14 @@ func gengitsumcode(g *os.File, gp *Tpack, gc *Tcode) error {
 			gi = gc.Interfaces.I
 			gm = &gi.Markup
 			wpre(g, gm)
+			w(g, "<pre><code>")
 			w(g, gi.Name)
 			gi.Funcs.Reset()
 			for gi.Funcs.Next() {
 				gf = gi.Funcs.F
 				wfunc(g, "- ", gf)
 			}
+			w(g, "</code></pre>")
 		}
 	}
 
@@ -98,7 +103,9 @@ func gengitsumcode(g *os.File, gp *Tpack, gc *Tcode) error {
 			gs = gc.Structs.S
 			gm = &gs.Markup
 			wpre(g, gm)
+			w(g, "<pre><code>")
 			w(g, gs.Name+" "+ws(gm.Comment))
+			w(g, "</code></pre>")
 		}
 	}
 
@@ -106,12 +113,12 @@ func gengitsumcode(g *os.File, gp *Tpack, gc *Tcode) error {
 	if gc.Funcs.Count() > 0 {
 		w(g, "#### Funcs")
 		gc.Funcs.Reset()
-		w(g, "```golang")
+		w(g, "<pre><code>")
 		for gc.Funcs.Next() {
 			gf = gc.Funcs.F
 			w(g, "Func:"+gf.Name)
 		}
-		w(g, "```")
+		w(g, "</code></pre>")
 	}
 
 	return nil
