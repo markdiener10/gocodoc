@@ -12,4 +12,4 @@
 <tr><td>baz</td><td>bim</td></tr>
 <tr></tr>
 </table>
-<table></table>
+<table><tr></tr></table>
