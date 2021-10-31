@@ -4,7 +4,7 @@
 
 Most github repos have a README.md file.  Repo owners should modify their README.md file with a link similar to the following:
 
-[Fakelib Documentation](../fakedocs2/README.md)
+[Fakelib2 Multi Package Documentation](../fakedocs2/README.md)
 
 # Github Markup Tests
 
