@@ -8,12 +8,12 @@ import (
 //Now we want to generate a README.md as our generated documentation head.
 //Then we want to count the number of packages in the parsed code
 
-func wn(g *os.File, out string) {
-	g.WriteString(out + "")
+func w(g *os.File, out string) {
+	g.WriteString(out + "  \r\n")
 }
 
-func w(g *os.File, out string) {
-	g.WriteString(out + "\r\n")
+func wn(g *os.File, out string) {
+	g.WriteString(out)
 }
 
 func ws(input string) string {

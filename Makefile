@@ -4,7 +4,7 @@ SHELL := /usr/bin/env bash
 .DEFAULT_GOAL := verify
 #COMMIT_SHA := $(shell git rev-parse HEAD)
 
-.PHONY: clean test ci dev git gen
+.PHONY: clean test ci dev git gen1 gen2
 
 #Helper function to clean up the docker environment
 clean:
@@ -34,9 +34,16 @@ dev:
 	go clean -testcache 
 	go test ./pkg
 
-gen: 
+gen1: 
 	go clean -testcache 
-	go test -run Gen ./pkg
+	go test -run GenOnePackageInPath ./pkg
+	git add .
+	git commit -m "doc formatting tests"
+	git push
+
+gen2: 
+	go clean -testcache 
+	go test -run GenOnePackageInPath ./pkg
 	git add .
 	git commit -m "doc formatting tests"
 	git push

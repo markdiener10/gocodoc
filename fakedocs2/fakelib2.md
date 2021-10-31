@@ -1,6 +1,5 @@
-# Documentation  
-### Package:fakelib1  
-../fakelib1/pkg  
+### Package:fakelib2  
+../fakelib2/pkg/stuff  
 #### Constants  
   
 ###### Comment above the FAKECONST  
@@ -23,7 +22,7 @@ FakeVar2 float64 This is a comment for FakeVar2
 TestInterface1  
 - Func:FuncOne  
 - Func:FuncTwo  
-../fakelib1/pkg  
+../fakelib2/pkg/stuff  
 #### Constants  
   
 FakeLibConst21   
@@ -37,7 +36,7 @@ FakeLibType22 bool
 TestInterface2  
 - Func:FuncOne  
 - Func:FuncTwo  
-../fakelib1/pkg  
+../fakelib2/pkg/stuff  
 C Linkage notice (look at source)  
 #### Constants  
 #### Types  
