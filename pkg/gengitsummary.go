@@ -10,16 +10,25 @@ func gengitsummary(g *os.File, gp *Tpack) error {
 
 	var gc *Tcode
 	var gcs *Tcodes
+	var cgo bool
 	gcodesarr := gp.SplitByPath()
 	for _, gcs = range gcodesarr {
+		cgo = false
 		for _, gc = range gcs.List {
-			gengitsumcode(g, gp, gc)
+			if gc.Cgo != true {
+				continue
+			}
+			cgo = true
+			break
+		}
+		for _, gc = range gcs.List {
+			gengitsumcode(g, gp, gc, cgo)
 		}
 	}
 	return nil
 }
 
-func gengitsumcode(g *os.File, gp *Tpack, gc *Tcode) error {
+func gengitsumcode(g *os.File, gp *Tpack, gc *Tcode, cgo bool) error {
 
 	var gv *Tvar
 	var gf *Tfunc
@@ -30,12 +39,12 @@ func gengitsumcode(g *os.File, gp *Tpack, gc *Tcode) error {
 	var idx int
 
 	w(g, gc.Path)
-	if gc.Cgo {
+	if cgo {
 		w(g, "C Linkage notice (look at source)")
 	}
 
 	//Consts
-	w(g, "#### Constants")
+	wn(g, "#### Constants  ")
 	gc.Consts.Reset()
 	for gc.Consts.Next() {
 		gco = gc.Consts.C
