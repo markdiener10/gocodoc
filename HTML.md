@@ -9,8 +9,9 @@
 <table>
 <thead>
 <tr>
-<th>foo</th>
-<th>bar</th>
+<th>Front</th>
+<th>Middle</th>
+<th>Back</th>
 </tr>
 </thead>
 <tbody>
