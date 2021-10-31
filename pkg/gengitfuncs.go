@@ -55,7 +55,11 @@ func (g *Tmarkdown) we(pre string, out string) string {
 	return pre + out
 }
 
-func (g *Tmarkdown) wcomment(input string) string {
+func (g *Tmarkdown) wcode(input string) {
+	g.w("   " + input)
+}
+
+func (g *Tmarkdown) wcomment(pre string, input string) string {
 	input = strings.TrimSpace(input)
 	if len(input) > 2 {
 		switch input[0:2] {
@@ -69,7 +73,7 @@ func (g *Tmarkdown) wcomment(input string) string {
 			input = strings.ReplaceAll(input, "/", "")
 		}
 	}
-	return input
+	return pre + input
 }
 
 func (g *Tmarkdown) wpre(gm *Tmarkup) {
@@ -82,7 +86,7 @@ func (g *Tmarkdown) wpre(gm *Tmarkup) {
 				continue
 			}
 		}
-		g.w("> " + g.wcomment(line))
+		g.w("> " + g.wcomment("", line))
 	}
 }
 

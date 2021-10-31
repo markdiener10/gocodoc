@@ -51,7 +51,7 @@ func gengitsumcode(gh *Tmarkdown, gp *Tpack, gc *Tcode, cgo bool) error {
 			if gco.Public[idx] == false {
 				continue
 			}
-			gh.w("   " + gh.wcomment(gco.Comments[idx]))
+			gh.wcode(gco.Items[idx] + gh.wcomment("   ", gco.Comments[idx]))
 		}
 	}
 
@@ -63,7 +63,7 @@ func gengitsumcode(gh *Tmarkdown, gp *Tpack, gc *Tcode, cgo bool) error {
 			gv = gc.Types.V
 			gm = &gv.Markup
 			gh.wpre(gm)
-			gh.w("   " + gv.Name + gh.we("    ", gv.Type) + "   " + gh.wcomment(gm.Comment))
+			gh.wcode(gv.Name + gh.we("    ", gv.Type) + gh.wcomment("   ", gm.Comment))
 		}
 	}
 
@@ -75,7 +75,7 @@ func gengitsumcode(gh *Tmarkdown, gp *Tpack, gc *Tcode, cgo bool) error {
 			gv = gc.Vars.V
 			gm = &gv.Markup
 			gh.wpre(gm)
-			gh.w("   " + gv.Name + gh.we("    ", gv.Type) + "   " + gh.wcomment(gm.Comment))
+			gh.wcode(gv.Name + gh.we("    ", gv.Type) + gh.wcomment("   ", gm.Comment))
 		}
 	}
 
@@ -88,7 +88,7 @@ func gengitsumcode(gh *Tmarkdown, gp *Tpack, gc *Tcode, cgo bool) error {
 			gm = &gi.Markup
 			gh.wpre(gm)
 			gh.w(gi.Name)
-			gh.w("   " + gi.Name + "   " + gh.wcomment(gm.Comment))
+			gh.wcode(gi.Name + gh.wcomment("   ", gm.Comment))
 			gi.Funcs.Reset()
 			for gi.Funcs.Next() {
 				gf = gi.Funcs.F
@@ -105,7 +105,7 @@ func gengitsumcode(gh *Tmarkdown, gp *Tpack, gc *Tcode, cgo bool) error {
 			gs = gc.Structs.S
 			gm = &gs.Markup
 			gh.wpre(gm)
-			gh.w("   " + gs.Name + " " + gh.wcomment(gm.Comment))
+			gh.wcode(gs.Name + gh.wcomment("    ", gm.Comment))
 		}
 	}
 
