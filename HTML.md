@@ -5,4 +5,18 @@
 <h5>Header 5</h5>
 <h6>Header 6</h6>
 <pre><code>Pre Code1</code></pre>
-<pre><code style='font-family: "Lucida Console", "Courier New", monospace; font-size: XX-Large;'>Pre Code2</code</pre>
+<pre><code>Pre Code2</code</pre>
+<table>
+<thead>
+<tr>
+<th>foo</th>
+<th>bar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>baz</td>
+<td>bim</td>
+</tr>
+</tbody>
+</table>
