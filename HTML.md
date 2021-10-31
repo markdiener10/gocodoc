@@ -6,8 +6,7 @@
 <h6>Header 6</h6>
 <pre><code>Pre Code1</code></pre>
 <table>
-<thead><tr><th>Front</th><th>Middle</th><th>Back</th></tr></thead>
-<tr><td>baz</td><td>bim</td></tr>
+<tr><td>baz</td><td>bim</td><td>Extra</td></tr>
 <tr><td>baz</td><td>bim</td></tr>
 <tr></tr>
 </table>
