@@ -6,6 +6,7 @@ Golang library document generator
 
 [Show Fake Lib One Package Demo](./fakelib1/README.md)  
 [Show Fake Lib Multi Package Demo](./fakelib2/README.md)  
+[HTML Demo](./HTML.md)  
 
 ## installation
 
