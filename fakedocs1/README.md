@@ -1,3 +1,45 @@
-<p># Documentation</p><br><p>### Package:fakelib1</p><br><p>../fakelib1//pkg</p><br><p>C Linkage notice (look at source)</p><br>#### Constants  <br><p>###### Comment above the FAKECONST</p><br><p><pre><code></p><br><p>FAKECONST      </p><br><p></code></pre></p><br><p>######  This is a comment that will appear above the const type</p><br><p><pre><code></p><br><p>FakeLibConst11       Comment</p><br><p>FakeLibConst12      </p><br><p>FakeLibConst13      </p><br><p>FakeLibConst14      Comment that does show</p><br><p></code></pre></p><br><p>#### Types</p><br><p><pre><code></p><br><p>FakeLibType11 int64  This is a comment that WILL appear in the documents</p><br><p></code></pre></p><br><p><pre><code></p><br><p>FakeLibType12 bool </p><br><p></code></pre></p><br><p>#### Vars</p><br><p>###### Here is a comment above the FakeVar1</p><br><p><pre><code></p><br><p>FakeVar1 int32 This is a comment for FakeVar1</p><br><p><pre><code></p><br><p>FakeVar2 float64 This is a comment for FakeVar2</p><br>#### Interfaces  
-<p>######  This is a comment that will appear above the interface type</p><br><p><pre><code></p><br><p>TestInterface1</p><br><p>- Func:FuncOne</p><br><p>- Func:FuncTwo</p><br><p></code></pre></p><br><p>../fakelib1//pkg</p><br><p>C Linkage notice (look at source)</p><br>#### Constants  <br><p><pre><code></p><br><p>FakeLibConst21      </p><br><p>FakeLibConst22      </p><br><p>FakeLibConst23      </p><br><p>FakeLibConst24      </p><br><p></code></pre></p><br><p>#### Types</p><br><p><pre><code></p><br><p>FakeLibType21 int64 This should show in documents for the FakeLibType21</p><br><p></code></pre></p><br><p><pre><code></p><br><p>FakeLibType22 bool </p><br><p></code></pre></p><br>#### Interfaces  
-<p><pre><code></p><br><p>TestInterface2</p><br><p>- Func:FuncOne</p><br><p>- Func:FuncTwo</p><br><p></code></pre></p><br><p>../fakelib1//pkg</p><br><p>C Linkage notice (look at source)</p><br>#### Constants  <br><p>#### Types</p><br><p><pre><code></p><br><p>FakeLibType31 int64 </p><br><p></code></pre></p><br>
+# Documentation
+### Package:fakelib1
+../fakelib1//pkg
+C Linkage notice (look at source)
+#### Constants
+> Comment above the FAKECONST
+   
+>  This is a comment that will appear above the const type
+    Comment
+   
+   
+   Comment that does show
+#### Types
+   FakeLibType11    int64    This is a comment that WILL appear in the documents
+   FakeLibType12    bool   
+#### Variables
+> Here is a comment above the FakeVar1
+   FakeVar1    int32   This is a comment for FakeVar1
+   FakeVar2    float64   This is a comment for FakeVar2
+#### Interfaces
+>  This is a comment that will appear above the interface type
+TestInterface1
+   TestInterface1   
+    Func:FuncOne
+    Func:FuncTwo
+../fakelib1//pkg
+C Linkage notice (look at source)
+#### Constants
+   
+   
+   
+   
+#### Types
+   FakeLibType21    int64   This should show in documents for the FakeLibType21
+   FakeLibType22    bool   
+#### Interfaces
+TestInterface2
+   TestInterface2   
+    Func:FuncOne
+    Func:FuncTwo
+../fakelib1//pkg
+C Linkage notice (look at source)
+#### Constants
+#### Types
+   FakeLibType31    int64   

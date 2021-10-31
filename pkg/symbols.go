@@ -36,10 +36,12 @@ func (g *Tpack) SplitByPath() []*Tcodes {
 	for _, codea = range g.Codes.List {
 		found = false
 		for _, gcodes = range glist {
-			for _, codeb = range gcodes.List {
-				if codea.Path != codeb.Path {
-					continue
-				}
+			if len(gcodes.List) == 0 {
+				continue
+			}
+			codeb = gcodes.List[0]
+			if codea.Path != codeb.Path {
+				break
 			}
 			gcodes.List = append(gcodes.List, codea)
 			found = true

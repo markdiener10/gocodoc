@@ -22,32 +22,35 @@ func Gengitmarkup(dest string, packs *Tpacks) error {
 		}
 	}
 
+	gm := &Tmarkdown{}
+	gm.init()
+
 	//Lets just generate a big README.md file for now
-	g, err := os.OpenFile(dest+"/README.md", os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0777)
+	err = gm.open(dest + "README.md")
 	if err != nil {
 		return err
 	}
-	defer g.Close()
+	defer gm.close()
 
-	w(g, "# Documentation")
+	gm.wh(1, "Documentation")
 
 	packcnt := packs.PackCount()
 	if packcnt == 0 {
-		w(g, "There are no packages with code in the related repository:"+dest)
+		gm.w("There are no packages with code in the related repository:" + dest)
 		return nil
 	}
 
 	P := packs.Reset()
 
 	if packcnt == 1 {
-		err = gengitsummary(g, P)
+		err = gengitsummary(gm, P)
 		if err != nil {
 			return err
 		}
-		return gengitdetailed(g, P, false)
+		return gengitdetailed(gm, P, false)
 	}
 
-	w(g, "## Packages")
+	gm.wh(2, "Packages")
 
 	for packs.Next() {
 		P = packs.P
@@ -55,14 +58,18 @@ func Gengitmarkup(dest string, packs *Tpacks) error {
 		case 0:
 			continue
 		case 1:
-			w(g, "### ["+P.Name+"](#"+P.Name+")")
+			gm.wh(3, "["+P.Name+"](#"+P.Name+")")
 		default:
-			w(g, "### ["+P.Name+"](#"+P.Name+") Files:"+strconv.Itoa(P.Codes.Count()))
+			gm.wh(3, "["+P.Name+"](#"+P.Name+") Files:"+strconv.Itoa(P.Codes.Count()))
 		}
 	}
 
 	//Now, we want to build a summary page
 	//and each package gets its own detailed page
+
+	gh := &Tmarkdown{}
+	gh.init()
+	defer gh.close()
 
 	packs.Reset()
 	for packs.Next() {
@@ -70,12 +77,12 @@ func Gengitmarkup(dest string, packs *Tpacks) error {
 		if P.Codes.Count() == 0 {
 			continue
 		}
-		gp, err := os.OpenFile(dest+"/"+P.Name+".md", os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0777)
+		gh.close()
+		err = gh.open(dest + P.Name + ".md")
 		if err != nil {
 			return err
 		}
-		defer gp.Close()
-		err = gengitsummary(gp, P)
+		err = gengitsummary(gh, P)
 		if err != nil {
 			return err
 		}

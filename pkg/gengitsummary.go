@@ -1,17 +1,14 @@
 package gocodoc
 
-import (
-	"os"
-)
+func gengitsummary(gh *Tmarkdown, gp *Tpack) error {
 
-func gengitsummary(g *os.File, gp *Tpack) error {
-
-	w(g, "### Package:"+gp.Name)
+	gh.wh(3, "Package:"+gp.Name)
 
 	var gc *Tcode
 	var gcs *Tcodes
 	var cgo bool
 	gcodesarr := gp.SplitByPath()
+
 	for _, gcs = range gcodesarr {
 		cgo = false
 		for _, gc = range gcs.List {
@@ -22,13 +19,13 @@ func gengitsummary(g *os.File, gp *Tpack) error {
 			break
 		}
 		for _, gc = range gcs.List {
-			gengitsumcode(g, gp, gc, cgo)
+			gengitsumcode(gh, gp, gc, cgo)
 		}
 	}
 	return nil
 }
 
-func gengitsumcode(g *os.File, gp *Tpack, gc *Tcode, cgo bool) error {
+func gengitsumcode(gh *Tmarkdown, gp *Tpack, gc *Tcode, cgo bool) error {
 
 	var gv *Tvar
 	var gf *Tfunc
@@ -38,96 +35,90 @@ func gengitsumcode(g *os.File, gp *Tpack, gc *Tcode, cgo bool) error {
 	var gco *Tconst
 	var idx int
 
-	w(g, gc.Path)
+	gh.w(gc.Path)
 	if cgo {
-		w(g, "C Linkage notice (look at source)")
+		gh.w("C Linkage notice (look at source)")
 	}
 
 	//Consts
-	wn(g, "#### Constants  ")
+	gh.wh(4, "Constants")
 	gc.Consts.Reset()
 	for gc.Consts.Next() {
 		gco = gc.Consts.C
 		gm = &gco.Markup
-		wpre(g, gm)
-		w(g, "<pre><code>")
+		gh.wpre(gm)
 		for idx, _ = range gco.Items {
 			if gco.Public[idx] == false {
 				continue
 			}
-			w(g, gco.Items[idx]+"      "+ws(gco.Comments[idx]))
+			gh.w("   " + gh.wcomment(gco.Comments[idx]))
 		}
-		w(g, "</code></pre>")
 	}
 
 	//types
-	w(g, "#### Types")
-	gc.Types.Reset()
-	for gc.Types.Next() {
-		gv = gc.Types.V
-		gm = &gv.Markup
-		wpre(g, gm)
-		w(g, "<pre><code>")
-		w(g, gv.Name+" "+gv.Type+" "+ws(gm.Comment))
-		w(g, "</code></pre>")
+	if gc.Types.Count() > 0 {
+		gh.wh(4, "Types")
+		gc.Types.Reset()
+		for gc.Types.Next() {
+			gv = gc.Types.V
+			gm = &gv.Markup
+			gh.wpre(gm)
+			gh.w("   " + gv.Name + gh.we("    ", gv.Type) + "   " + gh.wcomment(gm.Comment))
+		}
 	}
 
 	//vars
 	if gc.Vars.Count() > 0 {
-		w(g, "#### Vars")
+		gh.wh(4, "Variables")
 		gc.Vars.Reset()
 		for gc.Vars.Next() {
 			gv = gc.Vars.V
 			gm = &gv.Markup
-			wpre(g, gm)
-			w(g, "<pre><code>")
-			w(g, gv.Name+" "+gv.Type+" "+ws(gm.Comment))
+			gh.wpre(gm)
+			gh.w("   " + gv.Name + gh.we("    ", gv.Type) + "   " + gh.wcomment(gm.Comment))
 		}
 	}
 
 	//interfaces
 	if gc.Interfaces.Count() > 0 {
-		we(g, "#### ", "Interfaces")
+		gh.wh(4, "Interfaces")
 		gc.Interfaces.Reset()
 		for gc.Interfaces.Next() {
 			gi = gc.Interfaces.I
 			gm = &gi.Markup
-			wpre(g, gm)
-			w(g, "<pre><code>")
-			w(g, gi.Name)
+			gh.wpre(gm)
+			gh.w(gi.Name)
+			gh.w("   " + gi.Name + "   " + gh.wcomment(gm.Comment))
 			gi.Funcs.Reset()
 			for gi.Funcs.Next() {
 				gf = gi.Funcs.F
-				wfunc(g, "- ", gf)
+				gh.wfunc("    ", gf)
 			}
-			w(g, "</code></pre>")
 		}
 	}
 
 	//structs
 	if gc.Structs.Count() > 0 {
-		w(g, "#### Structs")
+		gh.wh(4, "Structs")
 		gc.Structs.Reset()
 		for gc.Structs.Next() {
 			gs = gc.Structs.S
 			gm = &gs.Markup
-			wpre(g, gm)
-			w(g, "<pre><code>")
-			w(g, gs.Name+" "+ws(gm.Comment))
-			w(g, "</code></pre>")
+			gh.wpre(gm)
+			gh.w("   " + gs.Name + " " + gh.wcomment(gm.Comment))
 		}
 	}
 
 	//funcs
 	if gc.Funcs.Count() > 0 {
-		w(g, "#### Funcs")
+		gh.wh(4, "Functions")
 		gc.Funcs.Reset()
-		w(g, "<pre><code>")
 		for gc.Funcs.Next() {
 			gf = gc.Funcs.F
-			w(g, "Func:"+gf.Name)
+			gm = &gf.Markup
+			gh.wpre(gm)
+			gh.wfunc(" ", gf)
 		}
-		w(g, "</code></pre>")
 	}
 
 	return nil
