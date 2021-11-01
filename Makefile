@@ -43,7 +43,7 @@ gen1:
 
 gen2: 
 	go clean -testcache 
-	go test -run GenOnePackageInPath ./pkg
+	go test -run GenMultiplePackagesInPath ./pkg
 	git add .
 	git commit -m "doc formatting tests"
 	git push
