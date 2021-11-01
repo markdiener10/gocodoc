@@ -21,7 +21,7 @@ func Gengitmarkup(dest string, packs *Tpacks) error {
 			return err
 		}
 	} else {
-		err = cleanout(dest,".md")
+		err = cleanout(dest, ".md")
 		if err != nil {
 			return err
 		}
@@ -52,7 +52,8 @@ func Gengitmarkup(dest string, packs *Tpacks) error {
 		if err != nil {
 			return err
 		}
-		return gengitdetailed(gm, P, false)
+		return nil
+		//return gengitdetailed(gm, P, false)
 	}
 
 	gm.wh(2, "Packages")

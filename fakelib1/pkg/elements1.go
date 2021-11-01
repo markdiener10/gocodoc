@@ -9,9 +9,9 @@ import (
 type FakeLibType11 int64 // This is a comment that WILL appear in the documents
 type FakeLibType12 bool  /// This is a comment that WILL NOT appear in the documents (3 slashes)
 
-//Here is a comment above the FakeVar1
-var FakeVar1 int32   //This is a comment for FakeVar1
-var FakeVar2 float64 //This is a comment for FakeVar2
+//Here is a comment above the FakeVar11
+var FakeVar11 int32   //This is a comment for FakeVar1
+var FakeVar12 float64 //This is a comment for FakeVar2
 
 //Comment above the FAKECONST
 const FAKECONST = 3 /* Comment next to FAKECONST */

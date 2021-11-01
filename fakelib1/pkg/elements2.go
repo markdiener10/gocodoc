@@ -18,6 +18,10 @@ const (
 	FakeLibConst24
 )
 
+//Here is a comment above the FakeVar21
+var FakeVar21 int32   //This is a comment for FakeVar1
+var FakeVar22 float64 //This is a comment for FakeVar2
+
 type TestInterface2 interface {
 	FuncOne(parm1 string, parm2 int) (string, bool)
 	FuncTwo(parm1 string, parm2 int) (string, bool)

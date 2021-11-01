@@ -198,6 +198,7 @@ func SplitByPath(g *Tpack) []*Tcode {
 				codea.Cgo = true
 			}
 			codea.Path = codeb.Path
+			codea.Consts.List = append(codea.Consts.List, codeb.Consts.List...)
 			codea.Funcs.List = append(codea.Funcs.List, codeb.Funcs.List...)
 			codea.Structs.List = append(codea.Structs.List, codeb.Structs.List...)
 			codea.Interfaces.List = append(codea.Interfaces.List, codeb.Interfaces.List...)

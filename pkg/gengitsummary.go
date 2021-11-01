@@ -27,8 +27,27 @@ func gengitsumcode(gh *Tmarkdown, gp *Tpack, gc *Tcode) error {
 		gh.w("C Linkage notice (look at source)")
 	}
 
-	//Consts
-	gh.wh(4, "Constants")
+	gh.wh(4, "Summary")
+
+	if gc.Funcs.Count() > 0 {
+		gc.Funcs.Reset()
+		for gc.Funcs.Next() {
+			gf = gc.Funcs.F
+			gm = &gf.Markup
+			gh.wfunc(" ", gf)
+		}
+	}
+
+	if gc.Structs.Count() > 0 {
+		gc.Structs.Reset()
+		for gc.Structs.Next() {
+			gs = gc.Structs.S
+			gm = &gs.Markup
+			gh.wcode(gs.Name + gh.wcomment("    ", gm.Comment))
+		}
+	}
+	return nil
+
 	gc.Consts.Reset()
 	for gc.Consts.Next() {
 		gco = gc.Consts.C
@@ -81,30 +100,6 @@ func gengitsumcode(gh *Tmarkdown, gp *Tpack, gc *Tcode) error {
 				gf = gi.Funcs.F
 				gh.wfunc("    ", gf)
 			}
-		}
-	}
-
-	//structs
-	if gc.Structs.Count() > 0 {
-		gh.wh(4, "Structs")
-		gc.Structs.Reset()
-		for gc.Structs.Next() {
-			gs = gc.Structs.S
-			gm = &gs.Markup
-			gh.wpre(gm)
-			gh.wcode(gs.Name + gh.wcomment("    ", gm.Comment))
-		}
-	}
-
-	//funcs
-	if gc.Funcs.Count() > 0 {
-		gh.wh(4, "Functions")
-		gc.Funcs.Reset()
-		for gc.Funcs.Next() {
-			gf = gc.Funcs.F
-			gm = &gf.Markup
-			gh.wpre(gm)
-			gh.wfunc(" ", gf)
 		}
 	}
 
