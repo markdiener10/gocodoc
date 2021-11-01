@@ -59,5 +59,13 @@ func Cmdlineprocess() (string, string, bool) {
 		pieces = strings.Split(arg2, "=")
 		dest = pieces[1]
 	}
+	src = strings.TrimSpace(src)
+	dest = strings.TrimSpace(dest)
+	if src[len(src)-1:] != "/" {
+		src += "/"
+	}
+	if dest[len(dest)-1:] != "/" {
+		dest += "/"
+	}
 	return src, dest, true
 }

@@ -5,27 +5,14 @@ func gengitsummary(gh *Tmarkdown, gp *Tpack) error {
 	gh.wh(3, "Package:"+gp.Name)
 
 	var gc *Tcode
-	var gcs *Tcodes
-	var cgo bool
-	gcodesarr := gp.SplitByPath()
-
-	for _, gcs = range gcodesarr {
-		cgo = false
-		for _, gc = range gcs.List {
-			if gc.Cgo != true {
-				continue
-			}
-			cgo = true
-			break
-		}
-		for _, gc = range gcs.List {
-			gengitsumcode(gh, gp, gc, cgo)
-		}
+	gcodesarr := SplitByPath(gp)
+	for _, gc = range gcodesarr {
+		gengitsumcode(gh, gp, gc)
 	}
 	return nil
 }
 
-func gengitsumcode(gh *Tmarkdown, gp *Tpack, gc *Tcode, cgo bool) error {
+func gengitsumcode(gh *Tmarkdown, gp *Tpack, gc *Tcode) error {
 
 	var gv *Tvar
 	var gf *Tfunc
@@ -36,7 +23,7 @@ func gengitsumcode(gh *Tmarkdown, gp *Tpack, gc *Tcode, cgo bool) error {
 	var idx int
 
 	gh.w(gc.Path)
-	if cgo {
+	if gc.Cgo {
 		gh.w("C Linkage notice (look at source)")
 	}
 
@@ -87,7 +74,7 @@ func gengitsumcode(gh *Tmarkdown, gp *Tpack, gc *Tcode, cgo bool) error {
 			gi = gc.Interfaces.I
 			gm = &gi.Markup
 			gh.wpre(gm)
-			gh.w(gi.Name)
+
 			gh.wcode(gi.Name + gh.wcomment("   ", gm.Comment))
 			gi.Funcs.Reset()
 			for gi.Funcs.Next() {

@@ -17,8 +17,8 @@ func TestFileExists(t *testing.T) {
 func TestCommandLine(t *testing.T) {
 
 	//We are one directory under the root directory
-	os.Args[1] = "--src=../fakelib"
-	os.Args[2] = "--dest=../fakedocs"
+	os.Args[1] = "--src=../fakelib1"
+	os.Args[2] = "--dest=../fakedocs1"
 
 	src, dest, reb := Cmdlineprocess()
 	if !reb {

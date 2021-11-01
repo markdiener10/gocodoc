@@ -101,3 +101,40 @@ func fileload(filename string, path string) (*[]string, error) {
 	}
 	return &lines, nil
 }
+
+func cleanout(path string, ext string) error {
+
+	var s string
+
+	ext = strings.TrimSpace(ext)
+	extlen := len(ext)
+
+	filelist, err := os.ReadDir(path)
+	if err != nil {
+		return err
+	}
+
+	for _, file := range filelist {
+		if file.IsDir() {
+			err = cleanout(path+"/"+file.Name(), ext)
+			if err != nil {
+				return err
+			}
+			continue
+		}
+		s = file.Name()
+		if len(s) <= extlen {
+			continue
+		}
+		if extlen > 0 {
+			if s[len(s)-extlen:] != ext {
+				continue
+			}
+		}
+		err = os.Remove(path + "/" + s)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}

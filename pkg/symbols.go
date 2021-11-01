@@ -23,62 +23,48 @@ func (g *Tpack) Init() {
 	g.Codes.Init()
 }
 
-//Allow us to compress the Tcodes based on file/path
-//into Tcodes based on path only (all source codes within directory are merged code-wise)
-func (g *Tpack) SplitByPath() []*Tcodes {
-
-	glist := []*Tcodes{}
-	var gcodes *Tcodes
-	var codea *Tcode
-	var codeb *Tcode
-	var found bool
-
-	for _, codea = range g.Codes.List {
-		found = false
-		for _, gcodes = range glist {
-			if len(gcodes.List) == 0 {
-				continue
-			}
-			codeb = gcodes.List[0]
-			if codea.Path != codeb.Path {
-				break
-			}
-			gcodes.List = append(gcodes.List, codea)
-			found = true
-			break
-		}
-		if found == false {
-			gcodes := &Tcodes{}
-			gcodes.Init()
-			gcodes.List = append(gcodes.List, codea)
-			glist = append(glist, gcodes)
-		}
-	}
-	return glist
-}
-
 type Tpacks struct {
 	idx  int
 	P    *Tpack
-	list []*Tpack
+	List []*Tpack
 }
 
 func (g *Tpacks) Init() {
-	g.list = []*Tpack{}
+	g.List = []*Tpack{}
 	g.idx = -1
 	g.P = nil
 }
 
 func (g *Tpacks) Count() int {
-	return len(g.list)
+	return len(g.List)
+}
+
+func (g *Tpacks) I(idx int) *Tpack {
+	if idx < 0 {
+		return nil
+	}
+	if len(g.List) <= idx {
+		return nil
+	}
+	return g.List[idx]
+}
+
+func (g *Tpacks) Pi(idx int, gp *Tpack) {
+	if idx < 0 {
+		return
+	}
+	if len(g.List) <= idx {
+		return
+	}
+	g.List[idx] = gp
 }
 
 func (g *Tpacks) Find(name string) *Tpack {
 	var item *Tpack
-	if len(g.list) == 0 {
+	if len(g.List) == 0 {
 		return nil
 	}
-	for _, item = range g.list {
+	for _, item = range g.List {
 		if item.Name != name {
 			continue
 		}
@@ -95,16 +81,16 @@ func (g *Tpacks) Get(name string) *Tpack {
 	}
 	item = &Tpack{Name: name}
 	item.Init()
-	g.list = append(g.list, item)
+	g.List = append(g.List, item)
 	return item
 }
 
 func (g *Tpacks) Reset() *Tpack {
 	g.idx = -1
-	if len(g.list) == 0 {
+	if len(g.List) == 0 {
 		return nil
 	}
-	return g.list[0]
+	return g.List[0]
 }
 
 func (g *Tpacks) Next() bool {
@@ -112,10 +98,10 @@ func (g *Tpacks) Next() bool {
 		g.idx = -1
 	}
 	g.idx++
-	if g.idx >= len(g.list) {
+	if g.idx >= len(g.List) {
 		return false
 	}
-	g.P = g.list[g.idx]
+	g.P = g.List[g.idx]
 	return true
 }
 
@@ -186,6 +172,27 @@ func (g *Tcodes) Count() int {
 	return len(g.List)
 }
 
+func (g *Tcodes) I(idx int) *Tcode {
+	if idx < 0 {
+		return nil
+	}
+	if len(g.List) <= idx {
+		return nil
+	}
+	return g.List[idx]
+}
+
+func (g *Tcodes) Pi(idx int, gp *Tcode) {
+	if idx < 0 {
+		return
+	}
+	if len(g.List) <= idx {
+		return
+	}
+	g.List[idx] = gp
+
+}
+
 func (g *Tcodes) Find(path string, filename string) *Tcode {
 	var item *Tcode
 	if len(g.List) == 0 {
@@ -251,23 +258,44 @@ func (g *Tvar) Init() {
 type Tvars struct {
 	idx  int
 	V    *Tvar
-	list []*Tvar
+	List []*Tvar
 }
 
 func (g *Tvars) Init() {
-	g.list = []*Tvar{}
+	g.List = []*Tvar{}
 }
 
 func (g *Tvars) Count() int {
-	return len(g.list)
+	return len(g.List)
+}
+
+func (g *Tvars) I(idx int) *Tvar {
+	if idx < 0 {
+		return nil
+	}
+	if len(g.List) <= idx {
+		return nil
+	}
+	return g.List[idx]
+}
+
+func (g *Tvars) Pi(idx int, gp *Tvar) {
+	if idx < 0 {
+		return
+	}
+	if len(g.List) <= idx {
+		return
+	}
+	g.List[idx] = gp
+
 }
 
 func (g *Tvars) Find(name string) *Tvar {
 	var item *Tvar
-	if len(g.list) == 0 {
+	if len(g.List) == 0 {
 		return nil
 	}
-	for _, item = range g.list {
+	for _, item = range g.List {
 		if item.Name == "" {
 			//Return values usually do not have names
 			continue
@@ -290,7 +318,7 @@ func (g *Tvars) Get(name string) *Tvar {
 	if name[0:0] == strings.ToUpper(name[0:0]) {
 		item.Public = true
 	}
-	g.list = append(g.list, item)
+	g.List = append(g.List, item)
 	return item
 }
 
@@ -298,16 +326,16 @@ func (g *Tvars) Add() *Tvar {
 	item := &Tvar{}
 	item.Init()
 	item.Public = true
-	g.list = append(g.list, item)
+	g.List = append(g.List, item)
 	return item
 }
 
 func (g *Tvars) Reset() *Tvar {
 	g.idx = -1
-	if len(g.list) == 0 {
+	if len(g.List) == 0 {
 		return nil
 	}
-	return g.list[0]
+	return g.List[0]
 }
 
 func (g *Tvars) Next() bool {
@@ -315,10 +343,10 @@ func (g *Tvars) Next() bool {
 		g.idx = -1
 	}
 	g.idx++
-	if len(g.list) <= g.idx {
+	if len(g.List) <= g.idx {
 		return false
 	}
-	g.V = g.list[g.idx]
+	g.V = g.List[g.idx]
 	return true
 }
 
@@ -341,23 +369,43 @@ func (g *Tfunc) Init() {
 type Tfuncs struct {
 	idx  int
 	F    *Tfunc
-	list []*Tfunc
+	List []*Tfunc
 }
 
 func (g *Tfuncs) Init() {
-	g.list = []*Tfunc{}
+	g.List = []*Tfunc{}
 }
 
 func (g *Tfuncs) Count() int {
-	return len(g.list)
+	return len(g.List)
+}
+
+func (g *Tfuncs) I(idx int) *Tfunc {
+	if idx < 0 {
+		return nil
+	}
+	if len(g.List) <= idx {
+		return nil
+	}
+	return g.List[idx]
+}
+
+func (g *Tfuncs) Pi(idx int, gp *Tfunc) {
+	if idx < 0 {
+		return
+	}
+	if len(g.List) <= idx {
+		return
+	}
+	g.List[idx] = gp
 }
 
 func (g *Tfuncs) Find(name string) *Tfunc {
 	var item *Tfunc
-	if len(g.list) == 0 {
+	if len(g.List) == 0 {
 		return nil
 	}
-	for _, item = range g.list {
+	for _, item = range g.List {
 		if item.Name != name {
 			continue
 		}
@@ -377,16 +425,16 @@ func (g *Tfuncs) Get(name string) *Tfunc {
 		item.Public = true
 	}
 
-	g.list = append(g.list, item)
+	g.List = append(g.List, item)
 	return item
 }
 
 func (g *Tfuncs) Reset() *Tfunc {
 	g.idx = -1
-	if len(g.list) == 0 {
+	if len(g.List) == 0 {
 		return nil
 	}
-	return g.list[0]
+	return g.List[0]
 }
 
 func (g *Tfuncs) Next() bool {
@@ -394,10 +442,10 @@ func (g *Tfuncs) Next() bool {
 		g.idx = -1
 	}
 	g.idx++
-	if len(g.list) <= g.idx {
+	if len(g.List) <= g.idx {
 		return false
 	}
-	g.F = g.list[g.idx]
+	g.F = g.List[g.idx]
 	return true
 }
 
@@ -422,24 +470,44 @@ func (g *Tstru) Init() {
 type Tstructures struct {
 	idx  int
 	S    *Tstru
-	list []*Tstru
+	List []*Tstru
 }
 
 func (g *Tstructures) Init() {
-	g.list = []*Tstru{}
+	g.List = []*Tstru{}
 	g.S = nil
 }
 
 func (g *Tstructures) Count() int {
-	return len(g.list)
+	return len(g.List)
+}
+
+func (g *Tstructures) I(idx int) *Tstru {
+	if idx < 0 {
+		return nil
+	}
+	if len(g.List) <= idx {
+		return nil
+	}
+	return g.List[idx]
+}
+
+func (g *Tstructures) Pi(idx int, gp *Tstru) {
+	if idx < 0 {
+		return
+	}
+	if len(g.List) <= idx {
+		return
+	}
+	g.List[idx] = gp
 }
 
 func (g *Tstructures) Find(name string) *Tstru {
 	var item *Tstru
-	if len(g.list) == 0 {
+	if len(g.List) == 0 {
 		return nil
 	}
-	for _, item = range g.list {
+	for _, item = range g.List {
 		if item.Name != name {
 			continue
 		}
@@ -455,17 +523,17 @@ func (g *Tstructures) Get(name string) *Tstru {
 	}
 	item = &Tstru{Name: name}
 	item.Init()
-	g.list = append(g.list, item)
+	g.List = append(g.List, item)
 	return item
 }
 
 func (g *Tstructures) Reset() *Tstru {
 	g.idx = -1
 	g.S = nil
-	if len(g.list) == 0 {
+	if len(g.List) == 0 {
 		return nil
 	}
-	return g.list[0]
+	return g.List[0]
 }
 
 func (g *Tstructures) Next() bool {
@@ -473,10 +541,10 @@ func (g *Tstructures) Next() bool {
 		g.idx = -1
 	}
 	g.idx++
-	if len(g.list) <= g.idx {
+	if len(g.List) <= g.idx {
 		return false
 	}
-	g.S = g.list[g.idx]
+	g.S = g.List[g.idx]
 	return true
 }
 
@@ -498,23 +566,43 @@ func (g *Tinterface) Init() {
 type Tinterfaces struct {
 	idx  int
 	I    *Tinterface
-	list []*Tinterface
+	List []*Tinterface
 }
 
 func (g *Tinterfaces) Init() {
-	g.list = []*Tinterface{}
+	g.List = []*Tinterface{}
 }
 
 func (g *Tinterfaces) Count() int {
-	return len(g.list)
+	return len(g.List)
+}
+
+func (g *Tinterfaces) Idx(idx int) *Tinterface {
+	if idx < 0 {
+		return nil
+	}
+	if len(g.List) <= idx {
+		return nil
+	}
+	return g.List[idx]
+}
+
+func (g *Tinterfaces) Pidx(idx int, gp *Tinterface) {
+	if idx < 0 {
+		return
+	}
+	if len(g.List) <= idx {
+		return
+	}
+	g.List[idx] = gp
 }
 
 func (g *Tinterfaces) Find(name string) *Tinterface {
 	var item *Tinterface
-	if len(g.list) == 0 {
+	if len(g.List) == 0 {
 		return nil
 	}
-	for _, item = range g.list {
+	for _, item = range g.List {
 		if item.Name != name {
 			continue
 		}
@@ -534,16 +622,16 @@ func (g *Tinterfaces) Get(name string) *Tinterface {
 		item.Public = true
 	}
 
-	g.list = append(g.list, item)
+	g.List = append(g.List, item)
 	return item
 }
 
 func (g *Tinterfaces) Reset() *Tinterface {
 	g.idx = -1
-	if len(g.list) == 0 {
+	if len(g.List) == 0 {
 		return nil
 	}
-	return g.list[0]
+	return g.List[0]
 }
 
 func (g *Tinterfaces) Next() bool {
@@ -551,10 +639,10 @@ func (g *Tinterfaces) Next() bool {
 		g.idx = -1
 	}
 	g.idx++
-	if len(g.list) <= g.idx {
+	if len(g.List) <= g.idx {
 		return false
 	}
-	g.I = g.list[g.idx]
+	g.I = g.List[g.idx]
 	return true
 }
 
@@ -590,30 +678,50 @@ func (g *Tconst) Add(item string, comment string) {
 type Tconsts struct {
 	idx  int
 	C    *Tconst
-	list []*Tconst
+	List []*Tconst
 }
 
 func (g *Tconsts) Init() {
-	g.list = []*Tconst{}
+	g.List = []*Tconst{}
 }
 
 func (g *Tconsts) Count() int {
-	return len(g.list)
+	return len(g.List)
+}
+
+func (g *Tconsts) Idx(idx int) *Tconst {
+	if idx < 0 {
+		return nil
+	}
+	if len(g.List) <= idx {
+		return nil
+	}
+	return g.List[idx]
+}
+
+func (g *Tconsts) Pidx(idx int, gp *Tconst) {
+	if idx < 0 {
+		return
+	}
+	if len(g.List) <= idx {
+		return
+	}
+	g.List[idx] = gp
 }
 
 func (g *Tconsts) Add() *Tconst {
 	gc := &Tconst{}
 	gc.Init()
-	g.list = append(g.list, gc)
+	g.List = append(g.List, gc)
 	return gc
 }
 
 func (g *Tconsts) Reset() *Tconst {
 	g.idx = -1
-	if len(g.list) == 0 {
+	if len(g.List) == 0 {
 		return nil
 	}
-	return g.list[0]
+	return g.List[0]
 }
 
 func (g *Tconsts) Next() bool {
@@ -621,10 +729,10 @@ func (g *Tconsts) Next() bool {
 		g.idx = -1
 	}
 	g.idx++
-	if len(g.list) <= g.idx {
+	if len(g.List) <= g.idx {
 		return false
 	}
-	g.C = g.list[g.idx]
+	g.C = g.List[g.idx]
 	return true
 }
 

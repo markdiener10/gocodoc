@@ -230,6 +230,8 @@ func parseconst(code *Tcode, packline int, lines *[]string) error {
 			}
 			comment = strings.TrimLeft(comment, " ")
 
+			//Pull out any specific values like "iota"
+			//TODO: Capture the value after the equals sign but before the comments
 			idxTest = Iat(line, "=", 0, -1)
 			if idxTest > -1 {
 				line = strings.TrimSpace(line[0:idxTest])

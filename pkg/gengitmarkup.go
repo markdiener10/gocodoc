@@ -18,7 +18,12 @@ func Gengitmarkup(dest string, packs *Tpacks) error {
 	if err = fileexists(dest); err != nil {
 		err = os.MkdirAll(dest, 0777)
 		if err != nil {
-			return nil
+			return err
+		}
+	} else {
+		err = cleanout(dest,".md")
+		if err != nil {
+			return err
 		}
 	}
 
