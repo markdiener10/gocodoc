@@ -228,6 +228,8 @@ func parseconst(code *Tcode, packline int, lines *[]string) error {
 				comment = strings.TrimSpace(line[idxComment:])
 				line = strings.TrimSpace(line[0:idxComment])
 			}
+			comment = strings.TrimLeft(comment, " ")
+
 			idxTest = Iat(line, "=", 0, -1)
 			if idxTest > -1 {
 				line = strings.TrimSpace(line[0:idxTest])

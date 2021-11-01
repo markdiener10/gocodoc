@@ -24,6 +24,8 @@ gocodoc --src=path --dest=path
 
 The reason for this utility is that there is a missing piece in golang build pipelines for private source code repositories.  While the pkg.dev site is good for documentation of public source code, there is nothing built for private developer consumption.  
 
+Inspiration: https://pkg.go.dev/strings#pkg-overview
+
 ## Other options
 
 Reviewing what was available at the time of this utility's creation:
